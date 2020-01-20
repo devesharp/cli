@@ -29,6 +29,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@devesharp/helpers-js": "^0.1.4",
     "gluegun": "^2.1.0",
     "ts-node": "^7.0.1",
     "typescript": "^3.7.5"
