@@ -29,19 +29,28 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "typescript": "3.2.2",
+    "gluegun": "^2.1.0",
     "ts-node": "^7.0.1",
-    "gluegun": "^2.1.0"
+    "typescript": "^3.7.5"
   },
   "devDependencies": {
-    "@types/node": "^10.12.12",
+    "@devesharp/eslint-config-typescript": "^1.0.1",
     "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.12",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^6.3.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^23.6.0",
+    "prettier": "^1.19.1",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.17.0",
-    "tslint-config-standard": "^8.0.1",
-    "prettier": "^1.12.1",
-    "jest": "^23.6.0"
+    "tslint-config-standard": "^8.0.1"
   },
   "jest": {
     "preset": "ts-jest",
