@@ -1,0 +1,44 @@
+import { Injectable } from '@nestjs/common';
+import { validateOrReject } from 'class-validator';
+import { plainToClass } from 'class-transformer';
+import { ISearchData } from '@devesharp/nestjs';
+import { Obj } from '@devesharp/helpers-js';
+import { Create<%= props.nameStudly %>Dto } from '../dto/<%= props.nameKebab %>/create-<%= props.nameKebab %>.dto';
+import { Update<%= props.nameStudly %>Dto } from '../dto/<%= props.nameKebab %>/update-<%= props.nameKebab %>.dto';
+import { Search<%= props.nameStudly %>Dto } from '../dto/<%= props.nameKebab %>/search-<%= props.nameKebab %>.dto';
+import { Users } from '../../repositories/entities/<%= props.nameKebab %>.entity';
+
+@Injectable()
+export class <%= props.nameStudly %>Validators {
+    async create(originalData: Partial<Create<%= props.nameStudly %>Dto>): Promise<any> {
+        const groups = [''];
+
+        const data = plainToClass(Create<%= props.nameStudly %>Dto, originalData);
+        await validateOrReject(data, { groups });
+        return data;
+    }
+
+    async update(originalData: Partial<Update<%= props.nameStudly %>Dto>, model: Users): Promise<any> {
+        const groups = [];
+
+        const data = plainToClass(Update<%= props.nameStudly %>Dto, originalData, {
+            excludeExtraneousValues: true,
+            enableImplicitConversion: true,
+            groups,
+        });
+
+        await validateOrReject(data, { groups });
+
+        return Obj.filter(data);
+    }
+
+    async search(originalData: ISearchData<Search<%= props.nameStudly %>Dto>, auth: Users): Promise<any> {
+        const filters = originalData.filters ?? {};
+        originalData.filters = plainToClass(Search<%= props.nameStudly %>Dto, filters, {
+            excludeExtraneousValues: true,
+            enableImplicitConversion: true,
+        });
+
+        return originalData;
+    }
+}

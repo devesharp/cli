@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@devesharp/typescript'],
-};
+    extends: ['@devesharp/typescript/base']
+}

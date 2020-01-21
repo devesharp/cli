@@ -1,25 +1,14 @@
-
-  import { GluegunToolbox } from 'gluegun'
-    
+import { GluegunToolbox } from 'gluegun';
+import { Nestjs } from '../app/nestjs';
 
 module.exports = {
-  name: 'generate',
-  alias: ['g'],
-  run: async (toolbox: GluegunToolbox) => {
-    const {
-      parameters,
-      template: { generate },
-      print: { info },
-    } = toolbox
-
-    const name = parameters.first
-
-    await generate({
-      template: 'model.js.ejs',
-      target: `models/${name}-model.js`,
-      props: { name },
-    })
-
-    info(`Generated file at models/${name}-model.js`)
-  },
-}
+    name: 'generate',
+    alias: ['g'],
+    run: async (toolbox: GluegunToolbox) => {
+        // try {
+        await new Nestjs().generate(toolbox);
+        // } catch (e) {
+        //     console.log(`Schematic inválido "${toolbox.parameters.first}".`.red);
+        // }
+    },
+};
