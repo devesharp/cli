@@ -4,7 +4,7 @@ import * as path from 'path';
 import { Str } from '@devesharp/helpers-js';
 
 export class Nestjs {
-    async generate(toolbox: GluegunToolbox) {
+    async generate(toolbox: GluegunToolbox): Promise<void> {
         const {
             parameters,
             template: { generate },
@@ -28,7 +28,11 @@ export class Nestjs {
             props: { nameKebab, nameStudly, nameLower },
         });
 
-        // this.updateExportsModule(`test/src/validators/validators.module.ts`, `${nameStudly}Validator`);
+        // Adicionar Serviço noexports
+        this.updateExportsModule(`test/src/validators/validators.module.ts`, `${nameStudly}Validator`);
+        // Adicionar Serviço no providers
+        this.updateProvidersModule(`test/src/validators/validators.module.ts`, `${nameStudly}Validator`);
+        // Adicionar Import
         this.updateProvidersModule(`test/src/validators/validators.module.ts`, `${nameStudly}Validator`);
 
         info(`${`CREATE`.green} /src/validators/${name}-validator/${name}-validator.service.spec.ts`);
@@ -41,22 +45,22 @@ export class Nestjs {
      * @param pathname
      * @param service
      */
-    updateExportsModule(pathname: string, service: string) {
-        const regex = /exports:.*\[(.+?|)\]/gs;
+    updateExportsModule(pathname: string, service: string): void {
+        const regex = /exports:([^[]*)\[([^\]]*)]/gs;
         const file = fs.readFileSync(path.resolve(pathname)).toString();
         let exportsString = regex.exec(file)[1];
         exportsString = exportsString.replace(/s+/gm, '');
 
         let fileUpdated;
-        if (exportsString == '') {
+        if (exportsString === '' || exportsString === ' ') {
             fileUpdated = file.replace(regex, `exports: [${service}]`);
         } else {
             fileUpdated = file.replace(regex, `exports: [${exportsString}, ${service}]`);
         }
 
-        fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
-            service,
-        )}.service';\n${fileUpdated}`;
+        // fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
+        //     service,
+        // )}.service';\n${fileUpdated}`;
 
         fs.writeFileSync(pathname, fileUpdated);
     }
@@ -66,22 +70,32 @@ export class Nestjs {
      * @param pathname
      * @param service
      */
-    updateProvidersModule(pathname: string, service: string) {
-        const regex = /providers:.*\[(.+?|)\]/gs;
+    updateProvidersModule(pathname: string, service: string): void {
+        const regex = /providers:([^[]*)\[([^\]]*)]/gs;
         const file = fs.readFileSync(path.resolve(pathname)).toString();
         let providersString = regex.exec(file)[1];
         providersString = providersString.replace(/s+/gm, '');
-
         let fileUpdated;
-        if (providersString == '') {
+
+        if (providersString === '' || providersString === ' ') {
             fileUpdated = file.replace(regex, `providers: [${service}]`);
         } else {
             fileUpdated = file.replace(regex, `providers: [${providersString}, ${service}]`);
         }
 
-        fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
+        // fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
+        //     service,
+        // )}.service';\n${fileUpdated}`;
+
+        fs.writeFileSync(pathname, fileUpdated);
+    }
+
+    addImportToModule(pathname: string, service: string, servicePath: string): void {
+        const file = fs.readFileSync(path.resolve(pathname)).toString();
+
+        const fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
             service,
-        )}.service';\n${fileUpdated}`;
+        )}.service';\n${file}`;
 
         fs.writeFileSync(pathname, fileUpdated);
     }
