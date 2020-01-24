@@ -93,6 +93,32 @@ export class Nestjs {
         toolbox.info(`${`UPDATE`.blue} /src/repositories/repositories.module.ts`);
     }
 
+    async generateTransformer(toolbox: any, data: any): Promise<void> {
+        const { name, nameKebab, nameStudly } = data;
+
+        // Criar arquivos
+        await toolbox.generate({
+            template: 'nestjs/transformer.ts.ejs',
+            target: `src/transformers/${nameKebab}-transformer/${nameKebab}.transformer.ts`,
+            props: { nameKebab, nameStudly },
+        });
+        // Adicionar Serviço noexports
+        this.updateExportsModule(`src/transformers/transformers.module.ts`, `${nameStudly}Transformer`);
+        // Adicionar Serviço no providers
+        this.updateProvidersModule(`src/transformers/transformers.module.ts`, `${nameStudly}Transformer`);
+        // Adicionar Import
+        this.addImportToModule(
+            `src/transformers/transformers.module.ts`,
+            `${nameStudly}Transformer`,
+            `./src/transformers/${nameKebab}-transformer/${nameKebab}.transformer.ts`,
+        );
+
+        // Logs
+        toolbox.info(`${`CREATE`.green} /src/transformers/${name}-transformer/${name}-transformer.service.spec.ts`);
+        toolbox.info(`${`CREATE`.green} /src/transformers/${name}-transformer/${name}-transformer.service.ts`);
+        toolbox.info(`${`UPDATE`.blue} /src/transformers/transformers.module.ts`);
+    }
+
     /**
      * Adicionar servico na key exports
      * @param pathname

@@ -375,7 +375,7 @@ import { Global, Module } from '@nestjs/common';
             );
         });
 
-        it('generate - Repository', async () => {
+        it.only('generate - Transformer', async () => {
             // Mocks
 
             // @ts-ignore
@@ -404,7 +404,7 @@ import { Global, Module } from '@nestjs/common';
                 },
                 print: { info: () => {}, success: () => {}, error: () => {} },
                 parameters: {
-                    first: 'repository',
+                    first: 'transformer',
                     second: 'FooBoo',
                 },
             };
@@ -413,22 +413,22 @@ import { Global, Module } from '@nestjs/common';
             await nestjs.generate(toolbox as any);
 
             expect(generateFn).toHaveBeenCalledWith({
-                template: 'nestjs/repository-mysql.ts.ejs',
-                target: `src/repositories/foo-boo-repository/foo-boo.repository.ts`,
+                template: 'nestjs/transformer.ts.ejs',
+                target: `src/transformers/foo-boo-transformer/foo-boo.transformer.ts`,
                 props: { nameKebab: 'foo-boo', nameStudly: 'FooBoo' },
             });
             expect(nestjs.updateExportsModule).toHaveBeenCalledWith(
-                `src/repositories/repositories.module.ts`,
-                `FooBooRepository`,
+                `src/transformers/transformers.module.ts`,
+                `FooBooTransformer`,
             );
             expect(nestjs.updateProvidersModule).toHaveBeenCalledWith(
-                `src/repositories/repositories.module.ts`,
-                `FooBooRepository`,
+                `src/transformers/transformers.module.ts`,
+                `FooBooTransformer`,
             );
             expect(nestjs.addImportToModule).toHaveBeenCalledWith(
-                `src/repositories/repositories.module.ts`,
-                `FooBooRepository`,
-                `./src/repositories/foo-boo-repository/foo-boo.repository.ts`,
+                `src/transformers/transformers.module.ts`,
+                `FooBooTransformer`,
+                `./src/transformers/foo-boo-transformer/foo-boo.transformer.ts`,
             );
         });
     });

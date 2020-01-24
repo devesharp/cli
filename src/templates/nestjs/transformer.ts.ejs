@@ -1,0 +1,12 @@
+import { Injectable } from '@nestjs/common';
+import { Transformer } from '@devesharp/nestjs/dist/services/transformer';
+import { <%= props.nameStudly %> } from '../../repositories/entities/<%= props.nameKebab %>.entity';
+
+@Injectable()
+export class <%= props.nameStudly %>Transformer extends Transformer {
+    async transform(model: <%= props.nameStudly %>, context = 'default', requester = null): Promise<object> {
+        return {
+            id: Number(model.id)
+        };
+    }
+}
