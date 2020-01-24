@@ -17,24 +17,30 @@ export class Nestjs {
         const nameStudly = Str.studly(name);
         const nameLower = name.toLowerCase();
 
+        // Criar arquivos
         await generate({
-            template: 'validator.service.ts.ejs',
-            target: `test/src/validators/${name}-validator/${name}-validator.service.ts`,
-            props: { nameKebab, nameStudly, nameLower },
+            template: 'nestjs/validator.ts.ejs',
+            target: `src/validators/${nameKebab}-validator/${nameKebab}.validator.ts`,
+            props: { nameKebab, nameStudly },
         });
         await generate({
-            template: 'validator.service.spec.ts.ejs',
-            target: `test/src/validators/${name}-validator/${name}-validator.service.spec.ts`,
-            props: { nameKebab, nameStudly, nameLower },
+            template: 'nestjs/validator.spec.ts.ejs',
+            target: `src/validators/${nameKebab}-validator/${nameKebab}.validator.spec.ts`,
+            props: { nameKebab, nameStudly },
         });
 
         // Adicionar Serviço noexports
-        this.updateExportsModule(`test/src/validators/validators.module.ts`, `${nameStudly}Validator`);
+        this.updateExportsModule(`src/validators/validators.module.ts`, `${nameStudly}Validator`);
         // Adicionar Serviço no providers
-        this.updateProvidersModule(`test/src/validators/validators.module.ts`, `${nameStudly}Validator`);
+        this.updateProvidersModule(`src/validators/validators.module.ts`, `${nameStudly}Validator`);
         // Adicionar Import
-        this.updateProvidersModule(`test/src/validators/validators.module.ts`, `${nameStudly}Validator`);
+        this.addImportToModule(
+            `src/validators/validators.module.ts`,
+            `${nameStudly}Validator`,
+            `./src/validators/${nameKebab}-validator/${nameKebab}.validator.ts`,
+        );
 
+        // Logs
         info(`${`CREATE`.green} /src/validators/${name}-validator/${name}-validator.service.spec.ts`);
         info(`${`CREATE`.green} /src/validators/${name}-validator/${name}-validator.service.ts`);
         info(`${`UPDATE`.blue} /src/validators/validators.module.ts`);

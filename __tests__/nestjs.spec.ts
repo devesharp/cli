@@ -1,6 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { GluegunToolbox } from 'gluegun';
 import { Nestjs } from '../src/app/nestjs';
+
+import fn = jest.fn;
 
 jest.mock('fs');
 
@@ -221,7 +224,7 @@ describe('NestJS', () => {
         );
     });
 
-    it.only('addImportToModule - Adicionar import', () => {
+    it('addImportToModule - Adicionar import', () => {
         // @ts-ignore
         fs.readFileSync = (filename: string) => `import { Global, Module } from '@nestjs/common';
             @Global()
@@ -249,6 +252,68 @@ import { Global, Module } from '@nestjs/common';
             })
             export class ValidatorsModule {}
         `,
+        );
+    });
+
+    it.only('updateExportsModule - Atualizar exports vazio', async () => {
+        // Mocks
+
+        // @ts-ignore
+        fs.readFileSync = (filename: string) => `
+            import { Global, Module } from '@nestjs/common';
+            @Global()
+            @Module({
+                providers: [],
+                exports: [],
+            })
+            export class ValidatorsModule {}
+        `;
+
+        // @ts-ignore
+        fs.writeFileSync = jest.fn();
+
+        // Mocks
+        const generateFn = jest.fn().mockResolvedValue(true);
+        jest.spyOn(nestjs, 'updateExportsModule').mockImplementation();
+        jest.spyOn(nestjs, 'updateProvidersModule').mockImplementation();
+        jest.spyOn(nestjs, 'addImportToModule').mockImplementation();
+
+        const toolbox = {
+            template: {
+                generate: generateFn,
+            },
+            print: { info: () => {}, success: () => {}, error: () => {} },
+            parameters: {
+                first: 'validators',
+                second: 'FooBoo',
+            },
+        };
+
+        // Test
+        await nestjs.generate(toolbox as any);
+
+        expect(generateFn).toHaveBeenCalledWith({
+            template: 'nestjs/validator.ts.ejs',
+            target: `src/validators/foo-boo-validator/foo-boo.validator.ts`,
+            props: { nameKebab: 'foo-boo', nameStudly: 'FooBoo' },
+        });
+        expect(generateFn).toHaveBeenCalledWith({
+            template: 'nestjs/validator.spec.ts.ejs',
+            target: `src/validators/foo-boo-validator/foo-boo.validator.spec.ts`,
+            props: { nameKebab: 'foo-boo', nameStudly: 'FooBoo' },
+        });
+        expect(nestjs.updateExportsModule).toHaveBeenCalledWith(
+            `src/validators/validators.module.ts`,
+            `FooBooValidator`,
+        );
+        expect(nestjs.updateProvidersModule).toHaveBeenCalledWith(
+            `src/validators/validators.module.ts`,
+            `FooBooValidator`,
+        );
+        expect(nestjs.addImportToModule).toHaveBeenCalledWith(
+            `src/validators/validators.module.ts`,
+            `FooBooValidator`,
+            `./src/validators/foo-boo-validator/foo-boo.validator.ts`,
         );
     });
 });

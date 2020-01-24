@@ -6,6 +6,8 @@
       <change beforePath="$PROJECT_DIR$/__tests__/nestjs.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/nestjs.spec.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/nestjs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/nestjs.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/dscli.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/dscli.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/validator.service.spec.ts.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/nestjs/validator.spec.ts.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/validator.service.ts.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/nestjs/validator.ts.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +55,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/templates/nestjs" />
       <recent name="$PROJECT_DIR$/__tests__" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -83,7 +86,7 @@
       <updated>1579562066922</updated>
       <workItem from="1579562070503" duration="10786000" />
       <workItem from="1579620992257" duration="2641000" />
-      <workItem from="1579861105518" duration="8399000" />
+      <workItem from="1579861105518" duration="10613000" />
     </task>
     <servers />
   </component>
