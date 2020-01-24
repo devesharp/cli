@@ -220,4 +220,35 @@ describe('NestJS', () => {
         `,
         );
     });
+
+    it.only('addImportToModule - Adicionar import', () => {
+        // @ts-ignore
+        fs.readFileSync = (filename: string) => `import { Global, Module } from '@nestjs/common';
+            @Global()
+            @Module({
+                providers: [],
+                exports: [],
+            })
+            export class ValidatorsModule {}
+        `;
+
+        // @ts-ignore
+        fs.writeFileSync = jest.fn();
+
+        const modulePath = `src/validators/validators.module.ts`;
+        nestjs.addImportToModule(modulePath, `Foo3Validator`, './validators/validators-foo3-validator');
+
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            modulePath,
+            `import { Foo3Validator } from './validators/validators-foo3-validator';
+import { Global, Module } from '@nestjs/common';
+            @Global()
+            @Module({
+                providers: [],
+                exports: [],
+            })
+            export class ValidatorsModule {}
+        `,
+        );
+    });
 });

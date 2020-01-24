@@ -93,4 +93,12 @@ export class Nestjs {
             console.log('No providers found in module');
         }
     }
+
+    addImportToModule(pathname: string, service: string, servicePath: string): void {
+        const file = fs.readFileSync(path.resolve(pathname)).toString();
+
+        const fileUpdated = `import { ${service} } from '${servicePath}';\n${file}`;
+
+        fs.writeFileSync(pathname, fileUpdated);
+    }
 }
