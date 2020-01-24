@@ -1,0 +1,21 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= props.nameStudly %>Policy } from './<%= props.nameKebab %>-policy.service';
+import bootstrapModules from '../../bootstrap.module';
+import { <%= props.nameStudly %>Module } from '../../modules/<%= props.nameKebab %>/<%= props.nameKebab %>.module';
+
+describe('<%= props.nameStudly %>Policy', () => {
+    let service: <%= props.nameStudly %>Policy;
+    
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            imports: [...bootstrapModules(), <%= props.nameStudly %>Module],
+            providers: [<%= props.nameStudly %>Policy],
+        }).compile();
+
+        service = module.get<<%= props.nameStudly %>Policy>(<%= props.nameStudly %>Policy);
+    });
+
+    it('should be defined', () => {
+        expect(service).toBeDefined();
+    });
+});

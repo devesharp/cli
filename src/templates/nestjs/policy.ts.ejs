@@ -1,0 +1,35 @@
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+
+@Injectable()
+export class e<%= props.nameStudly %>Policy {
+    /**
+     * @param auth
+     */
+    create(auth: any): boolean {
+        throw new UnauthorizedException();
+    }
+
+    /**
+     * @param auth
+     * @param model
+     */
+    update(auth: any, model: any): boolean {
+        throw new UnauthorizedException();
+    }
+
+    /**
+     * @param auth
+     * @param model
+     */
+    get(auth: any, model: any): boolean {
+        throw new UnauthorizedException();
+    }
+
+    /**
+     * @param auth
+     * @param model
+     */
+    delete(auth: any, model: any): boolean {
+        throw new UnauthorizedException();
+    }
+}

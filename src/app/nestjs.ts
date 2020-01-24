@@ -119,6 +119,37 @@ export class Nestjs {
         toolbox.info(`${`UPDATE`.blue} /src/transformers/transformers.module.ts`);
     }
 
+    async generatePolicy(toolbox: any, data: any): Promise<void> {
+        const { name, nameKebab, nameStudly } = data;
+
+        // Criar arquivos
+        await toolbox.generate({
+            template: 'nestjs/policy.ts.ejs',
+            target: `src/policies/${nameKebab}-policy/${nameKebab}.policy.ts`,
+            props: { nameKebab, nameStudly },
+        });
+        await toolbox.generate({
+            template: 'nestjs/policy.spec.ts.ejs',
+            target: `src/policies/${nameKebab}-policy/${nameKebab}.policy.spec.ts`,
+            props: { nameKebab, nameStudly },
+        });
+        // Adicionar Serviço noexports
+        this.updateExportsModule(`src/policies/policies.module.ts`, `${nameStudly}Policy`);
+        // Adicionar Serviço no providers
+        this.updateProvidersModule(`src/policies/policies.module.ts`, `${nameStudly}Policy`);
+        // Adicionar Import
+        this.addImportToModule(
+            `src/policies/policies.module.ts`,
+            `${nameStudly}Policy`,
+            `./src/policies/${nameKebab}-policy/${nameKebab}.policy.ts`,
+        );
+
+        // Logs
+        toolbox.info(`${`CREATE`.green} /src/policies/${name}-policy/${name}-policy.service.spec.ts`);
+        toolbox.info(`${`CREATE`.green} /src/policies/${name}-policy/${name}-policy.service.ts`);
+        toolbox.info(`${`UPDATE`.blue} /src/policies/policies.module.ts`);
+    }
+
     /**
      * Adicionar servico na key exports
      * @param pathname

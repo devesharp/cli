@@ -375,7 +375,7 @@ import { Global, Module } from '@nestjs/common';
             );
         });
 
-        it.only('generate - Transformer', async () => {
+        it('generate - Transformer', async () => {
             // Mocks
 
             // @ts-ignore
@@ -429,6 +429,65 @@ import { Global, Module } from '@nestjs/common';
                 `src/transformers/transformers.module.ts`,
                 `FooBooTransformer`,
                 `./src/transformers/foo-boo-transformer/foo-boo.transformer.ts`,
+            );
+        });
+
+        it.only('generate - Policies', async () => {
+            // Mocks
+
+            // @ts-ignore
+            fs.readFileSync = (filename: string) => `
+                import { Global, Module } from '@nestjs/common';
+                @Global()
+                @Module({
+                    providers: [],
+                    exports: [],
+                })
+                export class ValidatorsModule {}
+            `;
+
+            // @ts-ignore
+            fs.writeFileSync = jest.fn();
+
+            // Mocks
+            const generateFn = jest.fn().mockResolvedValue(true);
+            jest.spyOn(nestjs, 'updateExportsModule').mockImplementation();
+            jest.spyOn(nestjs, 'updateProvidersModule').mockImplementation();
+            jest.spyOn(nestjs, 'addImportToModule').mockImplementation();
+
+            const toolbox = {
+                template: {
+                    generate: generateFn,
+                },
+                print: { info: () => {}, success: () => {}, error: () => {} },
+                parameters: {
+                    first: 'policy',
+                    second: 'FooBoo',
+                },
+            };
+
+            // Test
+            await nestjs.generate(toolbox as any);
+
+            expect(generateFn).toHaveBeenCalledWith({
+                template: 'nestjs/policy.ts.ejs',
+                target: `src/policies/foo-boo-policy/foo-boo.policy.ts`,
+                props: { nameKebab: 'foo-boo', nameStudly: 'FooBoo' },
+            });
+            expect(generateFn).toHaveBeenCalledWith({
+                template: 'nestjs/policy.spec.ts.ejs',
+                target: `src/policies/foo-boo-policy/foo-boo.policy.spec.ts`,
+                props: { nameKebab: 'foo-boo', nameStudly: 'FooBoo' },
+            });
+            expect(nestjs.updateExportsModule).toHaveBeenCalledWith(`src/policies/policies.module.ts`, `FooBooPolicy`);
+            expect(nestjs.updateProvidersModule).toHaveBeenCalledWith(
+                `src/policies/policies.module.ts`,
+                `FooBooPolicy`,
+            );
+            expect(nestjs.addImportToModule).toHaveBeenCalledWith(
+                `src/policies/policies.module.ts`,
+                `FooBooPolicy`,
+                `./src/policies/foo-boo-policy/foo-boo.policy.ts`,
             );
         });
     });
