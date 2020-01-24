@@ -48,7 +48,7 @@ export class Nestjs {
     updateExportsModule(pathname: string, service: string): void {
         const regex = /exports:([^[]*)\[([^\]]*)]/gs;
         const file = fs.readFileSync(path.resolve(pathname)).toString();
-        let exportsString = regex.exec(file)[1];
+        let exportsString = regex.exec(file)[2];
         exportsString = exportsString.replace(/s+/gm, '');
 
         let fileUpdated;
