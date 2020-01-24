@@ -1,0 +1,15 @@
+import { Injectable, Scope } from '@nestjs/common';
+import { RepositoryMysql } from '@devesharp/nestjs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { <%= props.nameStudly %> } from '../entities/<%= props.nameKebab %>.entity';
+
+@Injectable({ scope: Scope.TRANSIENT })
+export class <%= props.nameStudly %>Repository extends RepositoryMysql<<%= props.nameStudly %>> {
+    constructor(
+        @InjectRepository(<%= props.nameStudly %>)
+        private readonly repository: Repository<<%= props.nameStudly %>>,
+    ) {
+        super(repository);
+    }
+}

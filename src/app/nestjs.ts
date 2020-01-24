@@ -8,22 +8,42 @@ export class Nestjs {
         const {
             parameters,
             template: { generate },
-            print: { info, success, error },
+            print: { info, error },
         } = toolbox;
 
         const schema = parameters.first;
         const name = parameters.second;
         const nameKebab = Str.kebab(name);
         const nameStudly = Str.studly(name);
-        const nameLower = name.toLowerCase();
+
+        if (this[`generate${Str.studly(schema)}`]) {
+            await this[`generate${Str.studly(schema)}`](
+                {
+                    parameters,
+                    generate,
+                    info,
+                },
+                {
+                    name,
+                    nameKebab,
+                    nameStudly,
+                },
+            );
+        } else {
+            error('Schema not found');
+        }
+    }
+
+    async generateValidator(toolbox: any, data: any): Promise<void> {
+        const { name, nameKebab, nameStudly } = data;
 
         // Criar arquivos
-        await generate({
+        await toolbox.generate({
             template: 'nestjs/validator.ts.ejs',
             target: `src/validators/${nameKebab}-validator/${nameKebab}.validator.ts`,
             props: { nameKebab, nameStudly },
         });
-        await generate({
+        await toolbox.generate({
             template: 'nestjs/validator.spec.ts.ejs',
             target: `src/validators/${nameKebab}-validator/${nameKebab}.validator.spec.ts`,
             props: { nameKebab, nameStudly },
@@ -41,9 +61,36 @@ export class Nestjs {
         );
 
         // Logs
-        info(`${`CREATE`.green} /src/validators/${name}-validator/${name}-validator.service.spec.ts`);
-        info(`${`CREATE`.green} /src/validators/${name}-validator/${name}-validator.service.ts`);
-        info(`${`UPDATE`.blue} /src/validators/validators.module.ts`);
+        toolbox.info(`${`CREATE`.green} /src/validators/${name}-validator/${name}-validator.service.spec.ts`);
+        toolbox.info(`${`CREATE`.green} /src/validators/${name}-validator/${name}-validator.service.ts`);
+        toolbox.info(`${`UPDATE`.blue} /src/validators/validators.module.ts`);
+    }
+
+    async generateRepository(toolbox: any, data: any): Promise<void> {
+        const { name, nameKebab, nameStudly } = data;
+
+        // Criar arquivos
+        await toolbox.generate({
+            template: 'nestjs/repository-mysql.ts.ejs',
+            target: `src/repositories/${nameKebab}-repository/${nameKebab}.repository.ts`,
+            props: { nameKebab, nameStudly },
+        });
+
+        // Adicionar Serviço noexports
+        this.updateExportsModule(`src/repositories/repositories.module.ts`, `${nameStudly}Repository`);
+        // Adicionar Serviço no providers
+        this.updateProvidersModule(`src/repositories/repositories.module.ts`, `${nameStudly}Repository`);
+        // Adicionar Import
+        this.addImportToModule(
+            `src/repositories/repositories.module.ts`,
+            `${nameStudly}Repository`,
+            `./src/repositories/${nameKebab}-repository/${nameKebab}.repository.ts`,
+        );
+
+        // Logs
+        toolbox.info(`${`CREATE`.green} /src/repositories/${name}-repository/${name}-repository.service.spec.ts`);
+        toolbox.info(`${`CREATE`.green} /src/repositories/${name}-repository/${name}-repository.service.ts`);
+        toolbox.info(`${`UPDATE`.blue} /src/repositories/repositories.module.ts`);
     }
 
     /**
