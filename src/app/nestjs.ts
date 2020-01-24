@@ -8,7 +8,7 @@ export class Nestjs {
         const {
             parameters,
             template: { generate },
-            print: { info, success },
+            print: { info, success, error },
         } = toolbox;
 
         const schema = parameters.first;
@@ -48,21 +48,23 @@ export class Nestjs {
     updateExportsModule(pathname: string, service: string): void {
         const regex = /exports:([^[]*)\[([^\]]*)]/gs;
         const file = fs.readFileSync(path.resolve(pathname)).toString();
-        let exportsString = regex.exec(file)[2];
-        exportsString = exportsString.replace(/s+/gm, '');
+        const math = regex.exec(file);
 
-        let fileUpdated;
-        if (exportsString === '' || exportsString === ' ') {
-            fileUpdated = file.replace(regex, `exports: [${service}]`);
+        if (math) {
+            let exportsString = math[2];
+            exportsString = exportsString.replace(/s+/gm, '');
+
+            let fileUpdated;
+            if (exportsString === '' || exportsString === ' ') {
+                fileUpdated = file.replace(regex, `exports: [${service}]`);
+            } else {
+                fileUpdated = file.replace(regex, `exports: [${exportsString}, ${service}]`);
+            }
+
+            fs.writeFileSync(pathname, fileUpdated);
         } else {
-            fileUpdated = file.replace(regex, `exports: [${exportsString}, ${service}]`);
+            console.log('No exports found in module');
         }
-
-        // fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
-        //     service,
-        // )}.service';\n${fileUpdated}`;
-
-        fs.writeFileSync(pathname, fileUpdated);
     }
 
     /**
@@ -73,30 +75,22 @@ export class Nestjs {
     updateProvidersModule(pathname: string, service: string): void {
         const regex = /providers:([^[]*)\[([^\]]*)]/gs;
         const file = fs.readFileSync(path.resolve(pathname)).toString();
-        let providersString = regex.exec(file)[1];
-        providersString = providersString.replace(/s+/gm, '');
-        let fileUpdated;
+        const math = regex.exec(file);
 
-        if (providersString === '' || providersString === ' ') {
-            fileUpdated = file.replace(regex, `providers: [${service}]`);
+        if (math) {
+            let providersString = math[2];
+            providersString = providersString.replace(/s+/gm, '');
+
+            let fileUpdated;
+            if (providersString === '' || providersString === ' ') {
+                fileUpdated = file.replace(regex, `providers: [${service}]`);
+            } else {
+                fileUpdated = file.replace(regex, `providers: [${providersString}, ${service}]`);
+            }
+
+            fs.writeFileSync(pathname, fileUpdated);
         } else {
-            fileUpdated = file.replace(regex, `providers: [${providersString}, ${service}]`);
+            console.log('No providers found in module');
         }
-
-        // fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
-        //     service,
-        // )}.service';\n${fileUpdated}`;
-
-        fs.writeFileSync(pathname, fileUpdated);
-    }
-
-    addImportToModule(pathname: string, service: string, servicePath: string): void {
-        const file = fs.readFileSync(path.resolve(pathname)).toString();
-
-        const fileUpdated = `import { ${service} } from './${Str.kebab(service)}/${Str.kebab(
-            service,
-        )}.service';\n${file}`;
-
-        fs.writeFileSync(pathname, fileUpdated);
     }
 }
