@@ -16,8 +16,8 @@ export class Nestjs {
         const nameKebab = Str.kebab(name);
         const nameStudly = Str.studly(name);
 
-        if (this[`generate${Str.studly(schema)}`]) {
-            await this[`generate${Str.studly(schema)}`](
+        if (this[`generateSchema${Str.studly(schema)}`]) {
+            await this[`generateSchema${Str.studly(schema)}`](
                 {
                     parameters,
                     generate,
@@ -34,7 +34,7 @@ export class Nestjs {
         }
     }
 
-    async generateValidator(toolbox: any, data: any): Promise<void> {
+    async generateSchemaValidator(toolbox: any, data: any): Promise<void> {
         const { name, nameKebab, nameStudly } = data;
 
         // Criar arquivos
@@ -66,7 +66,7 @@ export class Nestjs {
         toolbox.info(`${`UPDATE`.blue} /src/validators/validators.module.ts`);
     }
 
-    async generateRepository(toolbox: any, data: any): Promise<void> {
+    async generateSchemaRepository(toolbox: any, data: any): Promise<void> {
         const { name, nameKebab, nameStudly } = data;
 
         // Criar arquivos
@@ -93,7 +93,7 @@ export class Nestjs {
         toolbox.info(`${`UPDATE`.blue} /src/repositories/repositories.module.ts`);
     }
 
-    async generateTransformer(toolbox: any, data: any): Promise<void> {
+    async generateSchemaTransformer(toolbox: any, data: any): Promise<void> {
         const { name, nameKebab, nameStudly } = data;
 
         // Criar arquivos
@@ -119,7 +119,7 @@ export class Nestjs {
         toolbox.info(`${`UPDATE`.blue} /src/transformers/transformers.module.ts`);
     }
 
-    async generatePolicy(toolbox: any, data: any): Promise<void> {
+    async generateSchemaPolicy(toolbox: any, data: any): Promise<void> {
         const { name, nameKebab, nameStudly } = data;
 
         // Criar arquivos
