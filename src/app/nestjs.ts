@@ -57,7 +57,7 @@ export class Nestjs {
         this.addImportToModule(
             `src/validators/validators.module.ts`,
             `${nameStudly}Validator`,
-            `./src/validators/${nameKebab}-validator/${nameKebab}.validator.ts`,
+            `./${nameKebab}-validator/${nameKebab}.validator.ts`,
         );
 
         // Logs
@@ -72,7 +72,7 @@ export class Nestjs {
         // Criar arquivos
         await toolbox.generate({
             template: 'nestjs/repository-mysql.ts.ejs',
-            target: `src/repositories/${nameKebab}-repository/${nameKebab}.repository.ts`,
+            target: `./${nameKebab}-repository/${nameKebab}.repository.ts`,
             props: { nameKebab, nameStudly },
         });
 
@@ -110,7 +110,7 @@ export class Nestjs {
         this.addImportToModule(
             `src/transformers/transformers.module.ts`,
             `${nameStudly}Transformer`,
-            `./src/transformers/${nameKebab}-transformer/${nameKebab}.transformer.ts`,
+            `./${nameKebab}-transformer/${nameKebab}.transformer.ts`,
         );
 
         // Logs
@@ -141,7 +141,7 @@ export class Nestjs {
         this.addImportToModule(
             `src/policies/policies.module.ts`,
             `${nameStudly}Policy`,
-            `./src/policies/${nameKebab}-policy/${nameKebab}.policy.ts`,
+            `./${nameKebab}-policy/${nameKebab}.policy.ts`,
         );
 
         // Logs
