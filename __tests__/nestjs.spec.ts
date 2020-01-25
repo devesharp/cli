@@ -308,7 +308,7 @@ import { Global, Module } from '@nestjs/common';
             expect(nestjs.addImportToModule).toHaveBeenCalledWith(
                 `src/validators/validators.module.ts`,
                 `FooBooValidator`,
-                `./src/validators/foo-boo-validator/foo-boo.validator.ts`,
+                `./foo-boo-validator/foo-boo.validator.ts`,
             );
         });
 
@@ -365,7 +365,7 @@ import { Global, Module } from '@nestjs/common';
             expect(nestjs.addImportToModule).toHaveBeenCalledWith(
                 `src/repositories/repositories.module.ts`,
                 `FooBooRepository`,
-                `./src/repositories/foo-boo-repository/foo-boo.repository.ts`,
+                `./foo-boo-repository/foo-boo.repository.ts`,
             );
         });
 
@@ -422,7 +422,7 @@ import { Global, Module } from '@nestjs/common';
             expect(nestjs.addImportToModule).toHaveBeenCalledWith(
                 `src/transformers/transformers.module.ts`,
                 `FooBooTransformer`,
-                `./src/transformers/foo-boo-transformer/foo-boo.transformer.ts`,
+                `./foo-boo-transformer/foo-boo.transformer.ts`,
             );
         });
 
@@ -481,7 +481,7 @@ import { Global, Module } from '@nestjs/common';
             expect(nestjs.addImportToModule).toHaveBeenCalledWith(
                 `src/policies/policies.module.ts`,
                 `FooBooPolicy`,
-                `./src/policies/foo-boo-policy/foo-boo.policy.ts`,
+                `./foo-boo-policy/foo-boo.policy.ts`,
             );
         });
     });

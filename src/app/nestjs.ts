@@ -72,7 +72,7 @@ export class Nestjs {
         // Criar arquivos
         await toolbox.generate({
             template: 'nestjs/repository-mysql.ts.ejs',
-            target: `./${nameKebab}-repository/${nameKebab}.repository.ts`,
+            target: `src/repositories/${nameKebab}-repository/${nameKebab}.repository.ts`,
             props: { nameKebab, nameStudly },
         });
 
@@ -84,7 +84,7 @@ export class Nestjs {
         this.addImportToModule(
             `src/repositories/repositories.module.ts`,
             `${nameStudly}Repository`,
-            `./src/repositories/${nameKebab}-repository/${nameKebab}.repository.ts`,
+            `./${nameKebab}-repository/${nameKebab}.repository.ts`,
         );
 
         // Logs
