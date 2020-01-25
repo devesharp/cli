@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__tests__/nestjs.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/nestjs.spec.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/nestjs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/nestjs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/nestjs/repository-mysql.ts.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/nestjs/repository-mysql.ts.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +85,7 @@
       <updated>1579562066922</updated>
       <workItem from="1579562070503" duration="10786000" />
       <workItem from="1579620992257" duration="2641000" />
-      <workItem from="1579861105518" duration="17958000" />
+      <workItem from="1579861105518" duration="17988000" />
     </task>
     <servers />
   </component>
