@@ -72,7 +72,7 @@ describe('NestJS', () => {
                 @Global()
                 @Module({
                     providers: [],
-                    exports: [FooValidator,Foo2Validator, Foo3Validator],
+                    exports: [FooValidator,Foo2Validator,Foo3Validator],
                 })
                 export class ValidatorsModule {}
             `,
@@ -107,17 +107,14 @@ describe('NestJS', () => {
                 @Global()
                 @Module({
                     providers: [],
-                    exports: [
-                        FooValidator,
-                        Foo2Validator
-                    , Foo3Validator],
+                    exports: [FooValidator,Foo2Validator,Foo3Validator],
                 })
                 export class ValidatorsModule {}
             `,
             );
         });
 
-        it('updateProvidersModule - Atualizar exports vazio', () => {
+        it('updateProvidersModule - Atualizar providers vazio', () => {
             // @ts-ignore
             fs.readFileSync = (filename: string) => `
                 import { Global, Module } from '@nestjs/common';
@@ -149,7 +146,7 @@ describe('NestJS', () => {
             );
         });
 
-        it('updateProvidersModule - Atualizar exports com valores', () => {
+        it('updateProvidersModule - Atualizar providers com valores', () => {
             // @ts-ignore
             fs.readFileSync = (filename: string) => `
                 import { Global, Module } from '@nestjs/common';
@@ -173,7 +170,7 @@ describe('NestJS', () => {
                 import { Global, Module } from '@nestjs/common';
                 @Global()
                 @Module({
-                    providers: [FooValidator,Foo2Validator, Foo3Validator],
+                    providers: [FooValidator,Foo2Validator,Foo3Validator],
                     exports: [FooValidator,Foo2Validator],
                 })
                 export class ValidatorsModule {}
@@ -181,7 +178,7 @@ describe('NestJS', () => {
             );
         });
 
-        it('updateProvidersModule - Atualizar exports multi linha', () => {
+        it('updateProvidersModule - Atualizar providers multi linha', () => {
             // @ts-ignore
             fs.readFileSync = (filename: string) => `
                 import { Global, Module } from '@nestjs/common';
@@ -211,10 +208,7 @@ describe('NestJS', () => {
                 import { Global, Module } from '@nestjs/common';
                 @Global()
                 @Module({
-                    providers: [
-                        FooValidator,
-                        Foo2Validator
-                    , Foo3Validator],
+                    providers: [FooValidator,Foo2Validator,Foo3Validator],
                     exports: [
                         FooValidator,
                         Foo2Validator
@@ -432,7 +426,7 @@ import { Global, Module } from '@nestjs/common';
             );
         });
 
-        it.only('generate - Policies', async () => {
+        it('generate - Policies', async () => {
             // Mocks
 
             // @ts-ignore

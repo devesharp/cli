@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="60f31284-3a00-4611-abbb-c9d8a4386f42" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/nestjs.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/nestjs.spec.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/nestjs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/nestjs.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +84,7 @@
       <updated>1579562066922</updated>
       <workItem from="1579562070503" duration="10786000" />
       <workItem from="1579620992257" duration="2641000" />
-      <workItem from="1579861105518" duration="14216000" />
+      <workItem from="1579861105518" duration="17562000" />
     </task>
     <servers />
   </component>
@@ -116,11 +116,15 @@
       <screen x="0" y="23" width="2560" height="967" />
     </state>
     <state width="2539" height="241" key="GridCell.Tab.0.right/-1920.23.1920.1057/0.23.2560.967@0.23.2560.967" timestamp="1579563425502" />
-    <state x="789" y="156" key="SettingsEditor" timestamp="1579872743441">
+    <state x="868" y="247" key="IDE.errors.dialog" timestamp="1579877099004">
+      <screen x="0" y="23" width="2560" height="1057" />
+    </state>
+    <state x="868" y="247" key="IDE.errors.dialog/-1920.23.1920.967/0.23.2560.1057@0.23.2560.1057" timestamp="1579877099004" />
+    <state x="789" y="156" key="SettingsEditor" timestamp="1579954493410">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
     <state x="789" y="145" key="SettingsEditor/-1920.23.1920.1057/0.23.2560.967@0.23.2560.967" timestamp="1579564694106" />
-    <state x="789" y="156" key="SettingsEditor/-1920.23.1920.967/0.23.2560.1057@0.23.2560.1057" timestamp="1579872743441" />
+    <state x="789" y="156" key="SettingsEditor/-1920.23.1920.967/0.23.2560.1057@0.23.2560.1057" timestamp="1579954493410" />
     <state x="100" y="123" width="2360" height="767" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1579870193579">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
@@ -129,10 +133,10 @@
       <screen x="0" y="23" width="2560" height="967" />
     </state>
     <state x="950" y="247" width="659" height="518" key="find.popup/-1920.23.1920.1057/0.23.2560.967@0.23.2560.967" timestamp="1579562443510" />
-    <state x="945" y="255" width="670" height="739" key="search.everywhere.popup" timestamp="1579876962540">
+    <state x="945" y="255" width="670" height="739" key="search.everywhere.popup" timestamp="1579953946409">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
     <state x="945" y="235" width="670" height="676" key="search.everywhere.popup/-1920.23.1920.1057/0.23.2560.967@0.23.2560.967" timestamp="1579621858061" />
-    <state x="945" y="255" width="670" height="739" key="search.everywhere.popup/-1920.23.1920.967/0.23.2560.1057@0.23.2560.1057" timestamp="1579876962540" />
+    <state x="945" y="255" width="670" height="739" key="search.everywhere.popup/-1920.23.1920.967/0.23.2560.1057@0.23.2560.1057" timestamp="1579953946409" />
   </component>
 </project>

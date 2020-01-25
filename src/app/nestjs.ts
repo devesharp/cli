@@ -162,13 +162,13 @@ export class Nestjs {
 
         if (math) {
             let exportsString = math[2];
-            exportsString = exportsString.replace(/s+/gm, '');
+            exportsString = exportsString.replace(/\s+/gm, '');
 
             let fileUpdated;
             if (exportsString === '' || exportsString === ' ') {
                 fileUpdated = file.replace(regex, `exports: [${service}]`);
             } else {
-                fileUpdated = file.replace(regex, `exports: [${exportsString}, ${service}]`);
+                fileUpdated = file.replace(regex, `exports: [${exportsString},${service}]`);
             }
 
             fs.writeFileSync(pathname, fileUpdated);
@@ -189,13 +189,13 @@ export class Nestjs {
 
         if (math) {
             let providersString = math[2];
-            providersString = providersString.replace(/s+/gm, '');
+            providersString = providersString.replace(/\s+/gm, '');
 
             let fileUpdated;
             if (providersString === '' || providersString === ' ') {
                 fileUpdated = file.replace(regex, `providers: [${service}]`);
             } else {
-                fileUpdated = file.replace(regex, `providers: [${providersString}, ${service}]`);
+                fileUpdated = file.replace(regex, `providers: [${providersString},${service}]`);
             }
 
             fs.writeFileSync(pathname, fileUpdated);
